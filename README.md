@@ -28,33 +28,41 @@ typedef struct String String;
 ## Function Definitions
 
 ```
-String* createString(int size); // allocates memory for a string (LEAKY)
+String* createString(int size);
+// allocates memory for a string (LEAKY)
 ```
 
 ```
-void fillString(String* target, char* content); // fills in and fixes size issues for strings (LEAKY)
+void fillString(String* target, char* content);
+// fills in and fixes size issues for strings (LEAKY)
 ```
 
 ```
-void printString(String* target); // prints a string
+void printString(String* target);
+// prints a string
 ```
 
 ```
-String* substring(String* target, int start, int end); // creates a substring from a string based on a start and end index (LEAKY)
+String* substring(String* target, int start, int end);
+// creates a substring from a string based on a start and end index (LEAKY)
 ```
 
 ```
-int countOcurrancesInString(String* target, String* pattern); // counts how many pattern strings appear in the target string
+int countOcurrancesInString(String* target, String* pattern);
+// counts how many pattern strings appear in the target string
 ```
 
 ```
-int* getOcurrancesInString(String* target, String* pattern); // finds the indecies for where the pattern strings start in the target string (LEAKY)
+int* getOcurrancesInString(String* target, String* pattern);
+// finds the indecies for where the pattern strings start in the target string (LEAKY)
 ```
 
 ```
-int splitString(String* target, String* delimiter, String** stringSplits); // splits a string into many substrings according to a delimiter (SUPER LEAKY!)
+int splitString(String* target, String* delimiter, String** stringSplits);
+// splits a string into many substrings according to a delimiter (SUPER LEAKY!)
 ```
 
 ```
-int isEqual(String* string1, String* string2); // checks if two strings are the same length and if they have all the same characters
+int isEqual(String* string1, String* string2);
+// checks if two strings are the same length and if they have all the same characters
 ```
