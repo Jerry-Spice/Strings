@@ -4,6 +4,13 @@
 
 #include "String.h"
 
+/*
+String* createString(int size)
+ @param int size
+
+ @description allocates memory for a string
+ @leaky true
+*/
 String* createString(int size) {
     String* newString = (String*)malloc(sizeof(String));
 
@@ -15,6 +22,14 @@ String* createString(int size) {
     return newString;
 }
 
+/*
+void fillString(String* target, char* content)
+ @param String* target
+ @param char* content
+
+ @description fills in the content for a string and ensures memory sizes match
+ @leaky true
+*/
 void fillString(String* target, char* content) {
     int contentLength = 0;
     while (*(content+contentLength) != '\0') {
@@ -31,10 +46,26 @@ void fillString(String* target, char* content) {
     target->length = contentLength;
 }
 
+/*
+void printString(String* target)
+ @param String* target
+
+ @description prints out the string contents
+ @leaky false
+*/
 void printString(String* target) {
     printf("%s", target->content);
 }
 
+/*
+String* substring(String* target, int start, int end)
+ @param String* target
+ @param int start
+ @param int end
+
+ @description creates a substring from a target string and a start and end index
+ @leaky true
+*/
 String* substring(String* target, int start, int end) {
     if (end - start <= 0) {
         return NULL;
@@ -52,6 +83,14 @@ String* substring(String* target, int start, int end) {
     return newString;
 }
 
+/*
+int countOcurrancesInString(String *target, String *pattern)
+ @param String *target
+ @param String *pattern
+
+ @description counts how many times a pattern string appears in a target string
+ @leaky false
+*/
 int countOcurrancesInString(String *target, String *pattern) {
     int ocurrances = 0;
     for (int i = 0; i < target->length; i++) {
@@ -72,6 +111,14 @@ int countOcurrancesInString(String *target, String *pattern) {
     return ocurrances;
 }
 
+/*
+int* getOcurrancesInString(String *target, String *pattern)
+ @param String *target
+ @param String *pattern
+
+ @description finds where each pattern string starts in a target string
+ @leaky true
+*/
 int* getOcurrancesInString(String *target, String *pattern) {
     // printf("Getting ocurrances of '%s' inside of '%s'\n", pattern->content, target->content);
     int numberOfOcurrances = countOcurrancesInString(target, pattern);
@@ -91,6 +138,15 @@ int* getOcurrancesInString(String *target, String *pattern) {
     return indexes;
 }
 
+/*
+int splitString(String* target, String* delimiter, String** stringSplits)
+ @param String* target
+ @param String* delimiter
+ @param String** stringSplits
+
+ @description splits a string into several substrings based on a delimiter
+ @leaky true
+*/
 int splitString(String* target, String* delimiter, String** stringSplits) {
     // printf("Splitting '%s' by '%s'\n", target->content, delimiter->content);
 
@@ -110,6 +166,14 @@ int splitString(String* target, String* delimiter, String** stringSplits) {
     return numberOfLocations + 1;
 }
 
+/*
+int isEqual(String* string1, String* string2)
+ @param String* string1
+ @param String* string2
+
+ @description checks if two strings are the same length and if they have all the same characters in the same order
+ @leaky false
+*/
 int isEqual(String* string1, String* string2) {
     // printf("Comparing '%s' vs. '%s'\n", string1->content, string2->content);
 

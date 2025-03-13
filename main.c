@@ -4,6 +4,12 @@
 #include "String.h"
 
 
+/*
+int main()
+ @param 
+
+ @description blah blah blah
+*/
 int main() {
 
     String* someStuff = createString(10); // this is arbitrary
@@ -38,3 +44,4 @@ int main() {
 
     return 0;
 }
+
