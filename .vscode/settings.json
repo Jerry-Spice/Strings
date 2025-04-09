@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "string.h": "c"
+    },
+    "editor.fontFamily": "'Luculent', 'Droid Sans Mono', 'monospace', monospace",
+    "workbench.activityBar.location": "default",
+    "workbench.iconTheme": "vs-seti",
+    "workbench.sideBar.location": "right",
+    "editor.fontSize": 20
+}

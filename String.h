@@ -14,7 +14,7 @@ String* createString(int size)
  @param int size
 
  @description allocates memory for a string
- @leaky true
+ @leaky false
 */
 String* createString(int size);
 /*
@@ -23,9 +23,17 @@ void fillString(String* target, char* content)
  @param char* content
 
  @description fills in the content for a string and ensures memory sizes match
- @leaky true
+ @leaky false
 */
 void fillString(String* target, char* content);
+/*
+void deleteString(String* target)
+ @param String* target
+
+ @description frees the target string and the content within it
+ @leaky false
+*/
+void deleteString(String* target);
 /*
 void printString(String* target)
  @param String* target
@@ -41,9 +49,10 @@ String* substring(String* target, int start, int end)
  @param int end
 
  @description creates a substring from a target string and a start and end index
- @leaky true
+ @notes do not reuse the same variable when creating substrings. always use seperate variables
+ @leaky false
 */
-String* substring(String* target, int start, int end);
+String* substring(String* source, int start, int end);
 /*
 int countOcurrancesInString(String *target, String *pattern)
  @param String *target

@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
 #include "String.h"
 
 /*
@@ -9,13 +7,12 @@ String* createString(int size)
  @param int size
 
  @description allocates memory for a string
- @leaky true
+ @leaky false
 */
 String* createString(int size) {
     String* newString = (String*)malloc(sizeof(String));
 
-    newString->content = (char*)malloc(sizeof(char)*(size+1));
-    memset(newString->content,0,sizeof(char)*(size+1));
+    newString->content = (char*)calloc(sizeof(char), (size+1)); // +1 to account for '\0'
 
     newString->length=0;
     newString->size = size;
@@ -28,7 +25,7 @@ void fillString(String* target, char* content)
  @param char* content
 
  @description fills in the content for a string and ensures memory sizes match
- @leaky true
+ @leaky false
 */
 void fillString(String* target, char* content) {
     int contentLength = 0;
@@ -36,14 +33,34 @@ void fillString(String* target, char* content) {
         contentLength++;
     }
 
-    free(target->content);
-    target->content = (char*)malloc(sizeof(char)*contentLength);
-    memset(target->content, 0, sizeof(char)*contentLength);
+    if (contentLength >= target->size) {
+        target->content = realloc(target->content, sizeof(char) * (contentLength + 1));
+        target->size = contentLength;
+    }
+    
+    for (int i = 0; i < contentLength; i++) {
+        *(target->content+i) = *(content+i);
+    }
 
-    target->size = contentLength;
+    *(target->content+contentLength) = '\0';
 
-    target->content = content;
     target->length = contentLength;
+}
+
+/*
+void deleteString(String* target)
+ @param String* target
+
+ @description frees the target string and the content within it
+ @leaky false
+*/
+void deleteString(String* target) {
+    if (target != NULL) {
+        if (target->content != NULL) {
+            free(target->content);
+        }
+        free(target);
+    }
 }
 
 /*
@@ -64,23 +81,21 @@ String* substring(String* target, int start, int end)
  @param int end
 
  @description creates a substring from a target string and a start and end index
- @leaky true
+ @notes do not reuse the same variable when creating substrings. always use seperate variables
+ @leaky false
 */
-String* substring(String* target, int start, int end) {
-    if (end - start <= 0) {
+String* substring(String* source, int start, int end) {
+    if (end - start <= 0 || start + end > source->length) {
         return NULL;
     }
-    String* newString = createString(end-start+1);
 
+    String* destination = createString(end - start + 1);
 
     for (int i = start; i < end; i++) {
-        *(newString->content+(i - start)) = *(target->content+i);
+        *(destination->content+(i - start)) = *(source->content+i);
     }
-
-
-    newString->length = end-start;
     // printf("Substring: %s\n", newString->content);
-    return newString;
+    return destination;
 }
 
 /*
@@ -124,7 +139,7 @@ int* getOcurrancesInString(String *target, String *pattern) {
     int numberOfOcurrances = countOcurrancesInString(target, pattern);
     int* indexes = (int*)malloc(sizeof(int) * numberOfOcurrances);
     int indexOffset = 0;
-    String* temporarySubstring; // THis is arbitrary
+    String* temporarySubstring;
     for (int i = 0; i < target->length; i++) {
         temporarySubstring = substring(target, i, i+pattern->length);
         if (isEqual(temporarySubstring, pattern) == 0) {
